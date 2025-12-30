@@ -2,24 +2,24 @@
 	
 	<!-- Basic Options -->
 	<Networking>Enable</Networking> <!-- Enable or Disable network access -->
-	<MemoryInMB>12288</MemoryInMB> <!-- Adjust allocated memory as desired. Default is only 4GB -->
+	<MemoryInMB>8192</MemoryInMB> <!-- Adjust allocated memory as desired. Default is only 4GB -->
 	<ClipboardRedirection>Enable</ClipboardRedirection>  <!--  Enables or disables sharing clipboard between host & sandbox. Disable if security is paramount. -->
 	
 	<!-- Security Hardens the sandbox. The docs say this may affect ability to copy and paste, but that still seems to work. So I keep it enabled. -->
-	<ProtectedClient>Enable</ProtectedClient> 
+	<ProtectedClient>Disable</ProtectedClient> 
 	
 	<!-- Options for improved security -->
 	<VideoInput>Disable</VideoInput>
 	<AudioInput>Disable</AudioInput>
 	<PrinterRedirection>Disable</PrinterRedirection>
-	<vGPU>Disable</vGPU>
+	<vGPU>Enable</vGPU>
 
 	
 	<!--  Map a folder on your main system to appear within the sandbox  -->
 	<MappedFolders>
 		<!-- Desktop "HostShared" Folder. Put startup script and other useful scripts into. -->
 		<MappedFolder>
-		  <HostFolder>C:\Users\Public\Sandbox_Share</HostFolder> <!-- Update the HostFolder path to the one on your real computer that will be shared with the Sandbox -->
+		  <HostFolder>C:\Users\Public\Git\Windows-Sandbox-Tools</HostFolder> <!-- Update the HostFolder path to the one on your real computer that will be shared with the Sandbox -->
 		  <SandboxFolder>C:\Users\WDAGUtilityAccount\Desktop\HostShared</SandboxFolder> <!-- Don't change this, the startup script uses hardcoded paths -->
 		  <ReadOnly>true</ReadOnly> <!-- If Readonly is True, the sandbox can't change anything the folder (recommended) -->
 		</MappedFolder>
@@ -28,9 +28,10 @@
 	<!-- Run the powershell script from the mapped folder -->
 	<LogonCommand>
 		<!-- The seemingly redundant command nesting makes it so the powershell window is visible when running. -->
-		<Command>powershell -executionpolicy Bypass -command "start powershell {-file C:\Users\WDAGUtilityAccount\Desktop\HostShared\SandboxStartup.ps1 -launchingSandbox}"</Command>
+		<Command>powershell -executionpolicy Bypass -command "start powershell {-file \"C:\Users\WDAGUtilityAccount\Desktop\HostShared\Startup Scripts\SandboxStartup.ps1\" -launchingSandbox}"</Command>
 		<!-- Note: You can add more powershell commands in additional blocks. For example you can uncomment the line below. -->
 		<!-- <Command>powershell -executionpolicy Bypass -command "start powershell {-file \"C:\Users\WDAGUtilityAccount\Desktop\HostShared\Set Theme Dark Mode.ps1\"}"</Command> -->
+		<Command>powershell -command "Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser"</Command>
 	</LogonCommand>
 
 </Configuration> 
