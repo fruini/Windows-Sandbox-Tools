@@ -1,11 +1,10 @@
 # Install & configure scoop
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 scoop config show_update_log $false
-scoop hold scoop
+scoop config hold_update_until 2099-12-31
 
 # Install main packages
 scoop install git pwsh
-pwsh
 
 # Add additional buckets
 scoop bucket add extras
